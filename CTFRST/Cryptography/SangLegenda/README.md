@@ -1,4 +1,4 @@
-#Solution Of SangLegenda Challenges
+# Solution Of SangLegenda Challenges
 
 <p> Diberikan deskripsi challenge yaitu sejarah code yang dibuat oleh Samuel F.B. Morse namun kodenya tidak ada. Saat saya lihat hint, teryata ada teks morse dan kemungkinan bila didecode akan menghasilkan flag, saya langsung decode saja menggunakan <a href="https://morsedecoder.com/">morse decoder</a></p>
 
