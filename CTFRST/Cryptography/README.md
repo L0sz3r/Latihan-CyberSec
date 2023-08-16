@@ -1,6 +1,6 @@
 # Cryptography Challenges Of CTFRST (Rajawali Security Team)
 
-<p> I Solved 23 Challenges of 28 Challenges in Cryptography category. <br> The List Of Cryptography Challenges i solved is </br> </p>
+<p> I Solved 23 Challenges of 28 Challenges in Cryptography category. <br> The List Of Cryptography Challenges I solved : </br> </p>
 
 <li> Bin&Ner </li>
 <li> OTAN KODE </li>
