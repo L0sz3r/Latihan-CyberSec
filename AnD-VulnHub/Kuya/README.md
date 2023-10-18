@@ -4,17 +4,17 @@ You can download the file ova in <a href=https://www.vulnhub.com/entry/kuya-1,28
 
 # Kuya Machine (Solved)
 
-First, i opened the ovf file of target machine using VirtualBox and setting network of target machine using host-only adapter. After that, i use <strong> sudo arp-scan -l </strong> in my attacker machine to find the ip of target machine.
+First, open the ovf file of target machine using VirtualBox and setting network of target machine using host-only adapter. After that, use <strong> sudo arp-scan -l </strong> command in attacker machine to find the ip of target machine.
 
-Next, i use nmap to scan the port using this command : nmap -A -sV -sC -p- (ip), i used this command to scan all port with script engine default by nmap and scan the version of all port in target machine. However, i found 2 port (22/ssh and 80/http)
+Next, use nmap to scan the port using this command : nmap -A -sV -sC -p- (ip), i used this command to scan all port with script engine default by nmap and scan the version of all port in target machine. However, i found 2 port (22/ssh and 80/http)
 
 <img src=images/nmap.png>
 
-Let's go to Kuya Website (port 80/http) using browser. After opened i found the website with welcome message and trools ( i dont know how to meaning that). I use gobuster to find the hidden directory in website of target machine and seclists wordlist. Waited quite a long time, i found a suspicious directory of website named /loot
+Let's go to Kuya Website (port 80/http) using browser. After opened i found the website with welcome message and trools ( i dont know how to meaning that). I use gobuster to find the hidden directory in website of target machine and seclists wordlist. Waited quite a long time, i found a suspicious 2 directory of website named /wordpress and /loot
 
 <img src=images/gobuster.png>
 
-In loot directory, i found 5 images with .jpg file format. I think the 5 images should be interesting file or message, so i use strings, exiftool and steghide for the 5 images to find that. The 1.jpeg file embedded file named secret.txt with base64 encoding. After decode that, the message just scammer.
+In wordpress directory is not working because the php and mysql not installed in target-machine. But in loot directory, i found 5 images with .jpg file format. I think the 5 images should be interesting file or message, so i use strings, exiftool and steghide for the 5 images to find that. The 1.jpeg file embedded file named secret.txt with base64 encoding. After decode that, the message just scammer.
 
 <img src=images/loot1-image.png>
 
@@ -34,3 +34,12 @@ Open the folder of loot.7z file and find the rsa private key and rsa public key 
 
 <img src=images/ssh-john.png>
 
+After access the shell of target machine, read the file named sshscript.sh to get the flag 2. After that, go to /var/www/html/wordpress (check gobuster tagged) and read the file named wordpress-config-example.php to get the credential of kuya user (to find the kuya user, you can check in /home directory or read file /etc/passwd).
+
+<img src=images/wordpress.png>
+
+Now, change the user from test to kuya. After that go to /home/kuya and read who_is.txt and .bash_history, the interesting about 2 file is password IL0v3C@f3HaV@nA and getcap to read /etc/shadow (exactly, file /etc/shadow only read for root user) and the tar file. I search getcap privellege escalation in google and find this <a href=https://nxnjz.net/2018/08/an-interesting-privilege-escalation-vector-getcap/> blog. </a> I try the tutorial and its working to import the /root directory to /home/kuya directory.
+
+<img src=images/root.png>
+
+Thank You for another writeup i search and my learning about this machine : https://www.hackingarticles.in/vulnhub-kuya-1-walkthrough/
